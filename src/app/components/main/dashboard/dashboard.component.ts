@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +9,25 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
+  data: any;
+
+  constructor(private service: SharedService) { }
+
+  ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
+    this.service.get('dashboard-details').subscribe({
+      next: (resp: any) => {
+        this.data = resp.data.totalBookingsPerMonth;
+      },
+      error: error => {
+        console.log(error.message);
+      }
+    });
+  }
+  
 
 }

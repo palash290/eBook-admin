@@ -14,26 +14,47 @@
                     </div>
 
 
-                    <form action="">
+                    <form [formGroup]="loginForm">
                         <div class="ct_input-container">
-                            <input placeholder="Email Address" class="ct_input-field" type="text">
+                            <input placeholder="Email Address" class="ct_input-field" type="text"
+                                formControlName="email">
                             <label for="ct_input-field" class="ct_input-label">Email Address</label>
                             <span class="ct_input-highlight"></span>
+
+                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                                class="err_msg">
+                                <div *ngIf="loginForm.controls['email'].errors?.['required']">Please enter
+                                    email</div>
+                            </div>
+
                         </div>
                         <div class="ct_input-container position-relative">
 
-                            <i class="fa-regular fa-eye-slash ct_eye_show"></i>
-                            <input placeholder="Password" class="ct_input-field" type="password">
+                            <!-- <i class="fa-regular fa-eye-slash ct_eye_show"></i> -->
+                            <i class="fa-regular ct_eye_show" style="cursor: pointer;"
+                                [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"
+                                (click)="togglePasswordVisibility()"></i>
+
+                            <input placeholder="Password" class="ct_input-field"
+                                type="{{ isPasswordVisible ? 'text' : 'password' }}" formControlName="password">
 
                             <label for="ct_input-field" class="ct_input-label">Password</label>
                             <span class="ct_input-highlight"></span>
+
+                            <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                                class="err_msg">
+                                <div *ngIf="loginForm.controls['password'].errors?.['required']">Please
+                                    enter
+                                    password</div>
+                            </div>
+
                         </div>
                         <!-- <div class="text-end" >
                             <a href="javasscript:void(0)" class="ct_forgot_pass_link">Forgot your password</a>
                         </div> -->
 
                         <div class="mt-5">
-                            <a routerLink="/home/dashboard" type="button" class="ct_purple_btn w-100">Log In</a>
+                            <a (click)="loginAndFetchData()" routerLink="/home/dashboard" type="button" class="ct_purple_btn w-100">Log In</a>
                         </div>
                     </form>
                 </div>
