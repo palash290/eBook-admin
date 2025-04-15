@@ -21,11 +21,19 @@
                             <label for="ct_input-field" class="ct_input-label">Email Address</label>
                             <span class="ct_input-highlight"></span>
 
-                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                            <!-- <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
                                 class="err_msg">
                                 <div *ngIf="loginForm.controls['email'].errors?.['required']">Please enter
                                     email</div>
-                            </div>
+                            </div> -->
+
+                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="err_msg">
+                                <div *ngIf="loginForm.controls['email'].errors?.['required']">Please enter
+                                  email</div>
+                                <div *ngIf="loginForm.controls['email'].errors?.['email'] && !loginForm.controls['email'].errors?.['required']"
+                                  class="ct_fs_14 mt-1">
+                                  Invalid email format.</div>
+                              </div>
 
                         </div>
                         <div class="ct_input-container position-relative">
@@ -54,7 +62,7 @@
                         </div> -->
 
                         <div class="mt-5">
-                            <a (click)="loginAndFetchData()" routerLink="/home/dashboard" type="button" class="ct_purple_btn w-100">Log In</a>
+                            <a (click)="loginAndFetchData()" type="button" class="ct_purple_btn w-100">Log In</a>
                         </div>
                     </form>
                 </div>
@@ -64,3 +72,5 @@
 
     </div>
 </section>
+
+<app-loader *ngIf="loading"></app-loader>

@@ -1,13 +1,15 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [LoaderComponent, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -19,7 +21,7 @@ export class LoginComponent {
   resetForm!: FormGroup;
   @ViewChild('closeModal') closeModal!: ElementRef;
 
-  constructor(private route: Router, private apiService: SharedService) {
+  constructor(private route: Router, private apiService: SharedService, private toastr: NzMessageService) {
     if (this.apiService.isLogedIn()) {
       this.route.navigate(['/home/dashboard']);
     }
@@ -50,24 +52,24 @@ export class LoginComponent {
       const formURlData = new URLSearchParams();
       formURlData.set('email', this.loginForm.value.email);
       formURlData.set('password', this.loginForm.value.password);
-      this.apiService.postAPI('login', formURlData.toString()).subscribe({
+      this.apiService.postAPI1('login', formURlData.toString()).subscribe({
         next: (resp: any) => {
           if (resp.success == true) {
             this.route.navigateByUrl("/home/dashboard");
             this.apiService.setToken(resp.token);
-            //this.toastr.success(resp.message);
+            this.toastr.success(resp.message);
             this.loading = false;
           } else {
-            //this.toastr.warning(resp.message);
+            this.toastr.warning(resp.message);
             this.loading = false;
           }
         },
         error: (error) => {
           this.loading = false;
           if (error.error.message) {
-            //this.toastr.error(error.error.message);
+            this.toastr.error(error.error.message);
           } else {
-            //this.toastr.error('Something went wrong!');
+            this.toastr.error('Something went wrong!');
           }
         }
       });
@@ -92,7 +94,7 @@ export class LoginComponent {
               this.loading = false
               //this.toastr.success(resp.message)
               this.resetForm.reset()
-            
+
               this.closeModal.nativeElement.click();
             } else {
               this.loading = false

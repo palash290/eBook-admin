@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -10,7 +11,25 @@ import { environment } from '../../../environments/environment';
 export class SharedService {
       baseUrl = environment.baseUrl
 
-      constructor(private http: HttpClient) { }
+      constructor(private http: HttpClient, private route: Router) { }
+
+      postAPI1(url: any, data: any): Observable<any> {
+            const authToken = localStorage.getItem('eBookAdmin')
+            const headers = new HttpHeaders({
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  Authorization: `Bearer ${authToken}`
+            })
+            return this.http.post(this.baseUrl + url, data, { headers: headers })
+      }
+
+      getApi(url: any): Observable<any> {
+            const authToken = localStorage.getItem('eBookAdmin')
+            const headers = new HttpHeaders({
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${authToken}`
+            })
+            return this.http.get(this.baseUrl + url, { headers: headers })
+      }
 
       get<T>(url: string): Observable<T> {
             return this.http.get<T>(this.baseUrl + url);
@@ -40,6 +59,7 @@ export class SharedService {
       }
 
       logout() {
+            this.route.navigateByUrl('/')
             localStorage.clear()
             this.profileDataSubject.next(null);
       }

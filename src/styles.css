@@ -7,3 +7,12 @@
     /* flex-direction: row-reverse; */
     color: red;
   }
+
+  .ct_switch .form-check-input {
+    height: 20px;
+    cursor: pointer;
+}
+
+.ct_switch .form-check-input:focus{
+    box-shadow: unset;
+}

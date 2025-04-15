@@ -10,161 +10,51 @@
                     <table class="table ct_custom_table">
                         <thead>
                             <tr>
+                                <th>S No.</th>
                                 <th>User</th>
                                 <th>Email</th>
-                                <th>Books Published</th>
+                                <!-- <th>Books Published</th> -->
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let item of data; let i = index">
+                                <td>{{i+1}}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
+                                        <img [src]="item.avatar_url ? item.avatar_url : 'assets/img/avatar.png'" alt=""
+                                            class="ct_img_40">
                                         <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
+                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">{{item.fullName}}</h6>
                                             <p class="mb-0 ct_text_clr_6B7280">Author</p>
                                         </div>
 
                                     </div>
                                 </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
+                                <td class="ct_text_clr_6B7280">{{item.email}}</td>
+                                <!-- <td class="ct_text_clr_6B7280">12</td> -->
                                 <td>
+                                    @if(item.status == 1){
                                     <span class="ct_badge"
                                         style="color: #166534; background-color: #DCFCE7;">Active</span>
+                                    } @else {
+                                    <span class="ct_badge"
+                                        style="color: #651d16; background-color: #fce1dc;">Deactive</span>
+                                    }
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
-
+                                </td> -->
+                                <td [ngClass]="{'highlight-row': item.status == 1}">
+                                    <div class="form-check form-switch ct_switch">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckDefault" [(ngModel)]="item.status"
+                                            [ngModel]="item.status == 0" (click)="handleCheckboxChange(item)">
                                     </div>
                                 </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
 
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">John Smith</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Author</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">john.smithexample.com</td>
-                                <td class="ct_text_clr_6B7280">12</td>
-                                <td>
-                                    <span class="ct_badge"
-                                        style="color: #166534; background-color: #DCFCE7;">Active</span>
-                                </td>
-                                <td>
-                                    <button class="ct_red_btn">Suspend Author</button>
-                                </td>
-                            </tr>
                         </tbody>
 
                     </table>

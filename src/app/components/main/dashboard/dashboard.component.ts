@@ -19,7 +19,7 @@ export class DashboardComponent {
   }
 
   getData() {
-    this.service.get('dashboard-details').subscribe({
+    this.service.getApi('getdashboard').subscribe({
       next: (resp: any) => {
         this.data = resp.data.totalBookingsPerMonth;
       },
@@ -28,6 +28,6 @@ export class DashboardComponent {
       }
     });
   }
-  
+
 
 }
