@@ -1,0 +1,186 @@
+.ct_dark_purple_text {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+}
+
+.link {
+      overflow: hidden;
+      max-width: 12rem;
+      text-overflow: ellipsis;
+}
+
+.ct_profile_img_div {
+      position: absolute;
+      top: 25px;
+      height: 240px;
+      background: white;
+      width: 200px;
+      right: 120px;
+      padding: 10px;
+      transform: rotate(10deg);
+}
+
+.ct_profile_img_div img {
+      height: 195px;
+      width: 100%;
+      object-fit: cover;
+}
+
+.author_title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+      color: #9f572d;
+}
+
+.author_name {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 500;
+      margin: 0;
+      color: #9f572d;
+      font-family: "Playfair Display", serif;
+}
+
+/* .content_div {
+      position: absolute;
+      top: 50%;
+      right: 50%;
+
+} */
+
+.ct_authour_profile_img .content_div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+}
+
+.ct_authore_profile_card {
+      background-color: #fff;
+      border-radius: 0px 0px 10px 10px;
+}
+
+.ct_authour_profile_img img {
+      height: 287px;
+      width: 100%;
+      object-fit: cover;
+}
+
+.ct_profile_img_div {
+      position: absolute;
+      top: 25px;
+      height: 240px;
+      background: white;
+      width: 200px;
+      right: 120px;
+      padding: 10px;
+      transform: rotate(10deg);
+}
+
+.ct_profile_img_div img {
+      height: 195px;
+      width: 100%;
+      object-fit: cover;
+}
+
+.ct_authore_profile_card figcaption {
+      padding: 20px 40px;
+}
+
+.ct_main_explore_sec {
+      display: flex;
+      gap: 20px;
+}
+
+.ct_filter_side_bar {
+      width: 100%;
+      max-width: 360px;
+      padding: 0px 30px 30px;
+}
+
+.ct_author_about_box {
+      background-color: #fff;
+      padding: 40px 26px 20px;
+}
+
+.ct_author_about_box ul li+li {
+      border-top: 1px solid hsl(242deg 91% 8% / 30%);
+}
+
+.ct_author_about_box ul li {
+      padding: 16px 0px;
+}
+
+.ct_right_content_explore {
+      flex: 1;
+}
+
+.ct_mediam_purple_text {
+      color: #a303a0;
+}
+
+.ct_dark_purple_text {
+      color: #490057;
+}
+
+@media screen and (max-width:991px) {
+      .ct_main_explore_sec {
+            flex-direction: column;
+      }
+
+      .ct_filter_side_bar {
+            max-width: 100%;
+      }
+}
+
+.ct_authore_profile_info img {
+      width: 130px;
+      height: 130px;
+      border-radius: 100px;
+      object-fit: cover;
+      position: relative;
+      margin-top: -65px;
+}
+
+.ct_profile_detail_flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+}
+
+.ct_authore_profile_info {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+}
+
+.ct_book_img {
+      background-color: var(--grey_f5f5f5);
+      text-align: center;
+      padding: 10px;
+}
+
+.ct_book_img img {
+      width: 100%;
+      /* max-width: 99px; */
+      height: 153px;
+      object-fit: cover;
+      margin-inline: auto;
+}
+
+.ct_sell_book_card_bg {
+      background-color: #fff;
+}
+
+.ct_book_card figure figcaption {
+      margin-block: 15px;
+      padding-inline: 10px;
+}
+
+.ct_book_card {
+      height: 100%;
+}

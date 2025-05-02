@@ -27,13 +27,13 @@
                                     email</div>
                             </div> -->
 
-                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="err_msg">
-                                <div *ngIf="loginForm.controls['email'].errors?.['required']">Please enter
-                                  email</div>
+                            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                                class="err_msg">
+                                <div *ngIf="loginForm.controls['email'].errors?.['required']">Email is required</div>
                                 <div *ngIf="loginForm.controls['email'].errors?.['email'] && !loginForm.controls['email'].errors?.['required']"
-                                  class="ct_fs_14 mt-1">
-                                  Invalid email format.</div>
-                              </div>
+                                    class="ct_fs_14 mt-1">
+                                    Invalid email format.</div>
+                            </div>
 
                         </div>
                         <div class="ct_input-container position-relative">
@@ -51,15 +51,14 @@
 
                             <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
                                 class="err_msg">
-                                <div *ngIf="loginForm.controls['password'].errors?.['required']">Please
-                                    enter
-                                    password</div>
+                                <div *ngIf="loginForm.controls['password'].errors?.['required']">Password is required
+                                </div>
                             </div>
 
                         </div>
-                        <!-- <div class="text-end" >
-                            <a href="javasscript:void(0)" class="ct_forgot_pass_link">Forgot your password</a>
-                        </div> -->
+                        <div class="text-end">
+                            <a routerLink="/forgot-password" class="ct_forgot_pass_link">Forgot your password</a>
+                        </div>
 
                         <div class="mt-5">
                             <a (click)="loginAndFetchData()" type="button" class="ct_purple_btn w-100">Log In</a>

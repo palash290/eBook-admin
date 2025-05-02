@@ -10,11 +10,19 @@ import { SharedService } from '../../services/shared.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  userInfo: any
   constructor(private service: SharedService) { }
 
-  logout(){
+  logout() {
     this.service.logout();
   }
 
+  ngOnInit(): void {
+    this.service.getProfile('getMyProfile')
+    this.service.profileData$.subscribe((data) => {
+      if (data) {
+        this.userInfo = data;
+      }
+    });
+  }
 }

@@ -21,7 +21,7 @@ export class DashboardComponent {
   getData() {
     this.service.getApi('getdashboard').subscribe({
       next: (resp: any) => {
-        this.data = resp.data.totalBookingsPerMonth;
+        this.data = resp
       },
       error: error => {
         console.log(error.message);

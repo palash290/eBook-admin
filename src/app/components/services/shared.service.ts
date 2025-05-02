@@ -39,11 +39,19 @@ export class SharedService {
             return this.http.post<T>(this.baseUrl + url, data)
       };
       update<T, U>(url: string, data: U): Observable<T> {
-            return this.http.put<T>(this.baseUrl + url, data)
+            const authToken = localStorage.getItem('eBookAdmin')
+            const headers = new HttpHeaders({
+                  Authorization: `Bearer ${authToken}`
+            })
+            return this.http.put<T>(this.baseUrl + url, data, { headers: headers })
       };
 
       delete<T>(url: string): Observable<T> {
-            return this.http.delete<T>(this.baseUrl + url);
+            const authToken = localStorage.getItem('eBookAdmin')
+            const headers = new HttpHeaders({
+                  Authorization: `Bearer ${authToken}`
+            })
+            return this.http.delete<T>(this.baseUrl + url, { headers: headers });
       };
 
       setToken(token: string) {
@@ -67,4 +75,16 @@ export class SharedService {
       private profileDataSubject = new BehaviorSubject<any>(null);
       profileData$ = this.profileDataSubject.asObservable();
 
+      getProfile(url: string,) {
+            if (this.isLogedIn()) {
+                  const authToken = localStorage.getItem('eBookAdmin')
+                  const headers = new HttpHeaders({
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authToken}`
+                  })
+                  this.http.get(this.baseUrl + url, { headers: headers }).subscribe((res: any) => {
+                        this.profileDataSubject.next(res.profile);
+                  });
+            }
+      }
 }

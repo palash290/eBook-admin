@@ -6,9 +6,9 @@
     <div class="ct_right_dropdown dropdown">
         <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="d-flex align-items-center gap-2">
-                <img src="assets/img/avatar.png" alt="">
+                <img [src]="userInfo.avatar_url ? userInfo.avatar_url : 'assets/img/avatar.png'" alt="">
                 <div class="text-start">
-                    <p class="mb-0 ct_fw_500">John Doe</p>
+                    <p class="mb-0 ct_fw_500">{{userInfo.fullName}}</p>
                 </div>
             </div>
             <i class="fa-solid fa-angle-down ms-auto"></i>
@@ -16,41 +16,41 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" routerLink="/home/edit-profile">My Profile</a></li>
             <li><a class="dropdown-item" routerLink="/home/change-password">Change Password</a></li>
-            <li><a class="dropdown-item" data-bs-toggle="modal"
-                    data-bs-target="#ct_logout_modal_post">Log Out</a></li>
+            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ct_logout_modal_post">Log Out</a></li>
         </ul>
     </div>
 </header>
 
 <div class="modal fade" id="ct_logout_modal_post" tabindex="-1" aria-labelledby="ct_delete_postLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header py-0 border-0">
-            <button type="button" class="btn-close ct_close" data-bs-dismiss="modal" aria-label="Close"><i
-                    class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="modal-body">
-            <div class="ct_delete_post_modal">
-                <figure>
-                    <div class="ct_delete_post_icon">
-                        <i class="fa-solid fa-power-off"></i>
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header py-0 border-0">
+                <button type="button" class="btn-close ct_close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_delete_post_modal">
+                    <figure>
+                        <div class="ct_delete_post_icon">
+                            <i class="fa-solid fa-power-off"></i>
+                        </div>
+                        <figcaption class="mt-4">
+                            <h4 class="ct_fs_18 ct_fw_600">Log Out</h4>
+                            <p class="mb-0">Are you sure you want to logout? once you logout you need to login
+                                again.</p>
+                        </figcaption>
+                    </figure>
+                    <div class="modal-footer justify-content-center border-0 ct_modal_footer">
+                        <button type="button" class="ct_blue_btn ct_outline_blue w-100 ct_fw_600"
+                            data-bs-dismiss="modal">Cancel</button>
+                        <a (click)="logout()" class="ct_blue_btn ct_btn_red w-100 ct_fw_600 text-center"
+                            data-bs-dismiss="modal">Log
+                            Out</a>
                     </div>
-                    <figcaption class="mt-4">
-                        <h4 class="ct_fs_18 ct_fw_600">Log Out</h4>
-                        <p class="mb-0">Are you sure you want to logout? once you logout you need to login
-                            again.</p>
-                    </figcaption>
-                </figure>
-                <div class="modal-footer justify-content-center border-0 ct_modal_footer">
-                    <button type="button" class="ct_blue_btn ct_outline_blue w-100 ct_fw_600"
-                        data-bs-dismiss="modal">Cancel</button>
-                    <a (click)="logout()" class="ct_blue_btn ct_btn_red w-100 ct_fw_600 text-center">Log
-                        Out</a>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 </div>

@@ -2,248 +2,104 @@
     <div class="container-fluid">
         <div class="mb-5 d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <a> <i class="fa-solid fa-arrow-left me-3" aria-colspan=""></i>
+                <a> <i class="fa-solid fa-arrow-left me-3" (click)="location.back()"></i>
                 </a>
                 <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_600 mb-0  ct_border_btm_1 pb-2 ct_w_fit_content">
-                    Sci-Fi
-                    Lovers Club
+                    {{data.chat.name}}
                 </h4>
             </div>
-            <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_500 mb-0"><i class="fa-solid fa-users me-2"></i>234
+            <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_500 mb-0"><i
+                    class="fa-solid fa-users me-2"></i>{{data?.participants.length}}
                 Members</h4>
         </div>
 
         <div class="row ">
             <div class="col-md-8 mb-4 mb-md-0">
-                <div class="ct_white_bg">
-
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                        <div>
-                            <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John Smith</span>
-                                <span class="ct_text_636363">10:23
-                                    AM</span>
-                            </h6>
-                            <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Has anyone read the new Asimov
-                                collection?
-                                The reviews look promising!</p>
+                <div class="ct_white_bg ct_scroll">
+                    @if(data.messages.length == 0) {
+                    <div class="mt-5">
+                        <div class="ct_empty_chat_box_content d-flex justify-content-center mb-2">
+                            <svg width="100" height="100" viewBox="0 0 123 123" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.956267" y="1.3696" width="120.87" height="120.87" rx="60.4348"
+                                    fill="#F4F5FA" />
+                                <rect x="0.956267" y="1.3696" width="120.87" height="120.87" rx="60.4348"
+                                    stroke="#E1E2E9" stroke-width="0.869565" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M76.764 77.1737C70.1202 83.8182 60.2823 85.2538 52.2315 81.5305C51.043 81.052 50.0686 80.6653 49.1423 80.6653C46.5621 80.6806 43.3505 83.1824 41.6814 81.5152C40.0122 79.8459 42.516 76.6318 42.516 74.036C42.516 73.1096 42.1446 72.1526 41.6661 70.9618C37.9411 62.9123 39.3787 53.0711 46.0225 46.4288C54.5036 37.9445 68.2828 37.9445 76.764 46.4266C85.2605 54.924 85.2452 68.6916 76.764 77.1737Z"
+                                    fill="#BEC0CA" stroke="#8B8D97" stroke-width="1.30435" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M69.9541 62.7022H69.9737" stroke="#8B8D97" stroke-width="1.73913"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M61.2412 62.7022H61.2608" stroke="#8B8D97" stroke-width="1.73913"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M52.5244 62.7022H52.544" stroke="#8B8D97" stroke-width="1.73913"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
                         </div>
-
-                    </div>
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
                         <div>
-                            <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John Smith</span>
-                                <span class="ct_text_636363">10:23
-                                    AM</span>
-                            </h6>
-                            <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Has anyone read the new Asimov
-                                collection?
-                                The reviews look promising!</p>
+                            <h4 class="ct_fs_20 ct_fw_600 text-center">No Chats Found</h4>
                         </div>
-
                     </div>
-
+                    } @else {
+                    @for (item of data.messages; track $index) {
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
+                        <img [src]="item.senderAuthor?.avatar_url ? item.senderAuthor?.avatar_url : item.senderUser?.avatar_url ? item.senderUser?.avatar_url : 'assets/img/np_pro.png'"
+                            alt="" class="ct_img_40">
                         <div>
-                            <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John Smith</span>
-                                <span class="ct_text_636363">10:23
-                                    AM</span>
+                            <h6 class="ct_fs_18 mb-0 ct_fw_400"><span
+                                    class="ct_fw_600">{{item.senderAuthor?.fullName ? item.senderAuthor?.fullName : item.senderUser?.fullName}}</span>
+                                <span class="ms-2 ct_fs_12">{{formatDate(item.createdAt)}}
+                                </span>
                             </h6>
-                            <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Has anyone read the new Asimov
-                                collection?
-                                The reviews look promising!</p>
+                            <div *ngIf="item.ChatMessageFiles.length > 0">
+                                <nz-image-group class="d-flex gap-2 flex-wrap">
+                                    <img [nzSrc]="file.fileName" nz-image alt="" class="chat_img mt-2"
+                                        *ngFor="let file of item.ChatMessageFiles">
+                                </nz-image-group>
+                            </div>
+                            <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">{{item.content}}</p>
                         </div>
-
                     </div>
-
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                        <div>
-                            <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John Smith</span>
-                                <span class="ct_text_636363">10:23
-                                    AM</span>
-                            </h6>
-                            <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Has anyone read the new Asimov
-                                collection?
-                                The reviews look promising!</p>
-                        </div>
-
-                    </div>
-
-
+                    }
+                    }
                 </div>
-
-
-
             </div>
             <div class="col-md-4 mb-4 mb-md-0">
                 <div class="ct_white_bg">
                     <h4 class="ct_fs_18 ct_fw_600 mb-0 pb-3">Participants</h4>
                     <hr class="my-0" style="border-color: #0000001A;">
                     <div class="ct_participent_scroll">
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
+                        @if(data.participants.length == 0) {
+                        <div class="mt-5">
+                            <div class="ct_empty_chat_box_content d-flex justify-content-center mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24">
+                                    <path fill="#6b7280"
+                                        d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9A3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42c-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3a3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3a3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9c-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65c2.56.34 4.45 1.51 4.45 2.9z" />
+                                </svg>
+                            </div>
                             <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
+                                <h4 class="ct_fs_20 ct_fw_600 text-center">No Participants Found</h4>
+                            </div>
+                        </div>
+                        } @else {
+                        @for (item of data.participants; track $index) {
+                        <div class="d-flex align-items-center gap-2 mt-3">
+                            <img [src]="item.User?.avatar_url ? item.User?.avatar_url : item.Author?.avatar_url ? item.Author?.avatar_url : 'assets/img/np_pro.png'"
+                                alt="" class="ct_img_40">
+                            <div>
+                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span
+                                        class="ct_fw_600">{{item.User?.fullName ? item.User?.fullName : item.Author?.fullName}}</span>
 
                                 </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
+                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">{{item.authorId ? 'Author' : 'Reader'}}</p>
                             </div>
-
                         </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-center gap-2 mt-3">
-                            <img src="assets/img/user_1.png" alt="" class="ct_img_40">
-                            <div>
-                                <h6 class="ct_fs_18  mb-0 ct_fw_400"><span class="ct_fw_600">John
-                                        Smith</span>
-
-                                </h6>
-                                <p class="mb-0 ct_text_clr_6B7280 ct_fw_400">Author</p>
-                            </div>
-
-                        </div>
+                        }
+                        }
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
     </div>
 </div>

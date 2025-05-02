@@ -17,210 +17,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @for (item of data; track $index) {
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
+                                        <img [src]="item.profilePic ? item.profilePic :  'assets/img/np_pro.png'" alt=""
                                             class="ct_img_40 ct_border_1">
                                         <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
+                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">{{item.name}}</h6>
+                                            <!-- <p class="mb-0 ct_text_clr_6B7280">#design-team</p> -->
                                         </div>
 
                                     </div>
                                 </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
+                                <td class="ct_text_clr_6B7280">{{item.admin.fullName}}</td>
+                                <td class="ct_text_clr_6B7280">{{item.participants.length}}</td>
 
                                 <td>
-                                    <a routerLink="/home/chat-room-talk"> <i class="fa-solid fa-eye"></i></a>
+                                    <a routerLink="/home/chat-room-talk" [queryParams]="{id: item.id}"> <i
+                                            class="fa-solid fa-eye"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="assets/img/student_1.png" alt=""
-                                            class="ct_img_40 ct_border_1">
-                                        <div>
-                                            <h6 class="ct_fs_18 ct_fw_600 mb-0">The Art of Business</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">#design-team</p>
-                                        </div>
-
-                                    </div>
-                                </td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td class="ct_text_clr_6B7280">156</td>
-
-                                <td>
-                                    <a > <i class="fa-solid fa-eye"></i></a>
-                                </td>
-                            </tr>
-
+                            }
                         </tbody>
-
                     </table>
-
                 </div>
-
-
-
             </div>
-
-
         </div>
-
-
     </div>
 </div>

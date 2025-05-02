@@ -11,10 +11,11 @@
                         <thead>
                             <tr>
                                 <th>Book</th>
-                                <th>Date Published</th>
+                                <th>Price</th>
                                 <th>Author</th>
+                                <th>Date Published</th>
                                 <!-- <th>Genre</th> -->
-                                <th>Rating</th>
+                                <!-- <th>Rating</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -26,19 +27,24 @@
                                             class="ct_img_34">
                                         <div>
                                             <h6 class="ct_fs_18 ct_fw_600 mb-0">{{item.title}}</h6>
-                                            <p class="mb-0 ct_text_clr_6B7280">Business & Strategy</p>
+                                            <p class="mb-0 ct_text_clr_6B7280">{{categories(item.books)}}</p>
                                         </div>
 
                                     </div>
                                 </td>
-                                <td class="ct_text_clr_6B7280">Jan 15, 2024</td>
-                                <td class="ct_text_clr_6B7280">Sarah Johnson</td>
-                                <td>
+                                <td class="ct_text_clr_6B7280">{{item.price | currency: 'USD'}}</td>
+                                <td class="ct_text_clr_6B7280">{{item.author.fullName}}</td>
+                                <td class="ct_text_clr_6B7280">{{item.publishedAt}}</td>
+                                <!-- <td>
                                     <span><i class="fa-solid fa-star ct_yellow_star me-2"></i>4.8</span>
-                                </td>
+                                </td> -->
                                 <td>
-                                    <i class="fa-solid fa-trash-can text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#ct_delete_modal"></i>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i routerLink="/home/e-book-detail" [queryParams]="{id: item.id}"
+                                            class="fa-solid fa-eye ct_fs_14" style="cursor: pointer; color: gray;"></i>
+                                        <i class="fa-solid fa-trash-can text-danger ct_fs_14" data-bs-toggle="modal"
+                                            data-bs-target="#ct_delete_modal" (click)="bookId = item.id"></i>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -76,7 +82,8 @@
                 <button type="button" class="ct_blue_btn ct_outline_blue w-100 ct_fw_600"
                     data-bs-dismiss="modal">Cancel</button>
 
-                <button type="button" class="ct_blue_btn ct_btn_red w-100 ct_fw_600">Confirm</button>
+                <button type="button" class="ct_blue_btn ct_btn_red w-100 ct_fw_600" (click)="deleteBook()"
+                    data-bs-dismiss="modal">Confirm</button>
             </div>
         </div>
     </div>

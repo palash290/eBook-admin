@@ -12,7 +12,7 @@
                                 <th>S No.</th>
                                 <th>User</th>
                                 <th>Email</th>
-                                <th>Followers</th>
+                                <!-- <th>Followers</th> -->
                                 <th>Following</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -27,13 +27,13 @@
                                             class="ct_img_40">
                                         <div>
                                             <h6 class="ct_fs_18 ct_fw_600 mb-0">{{item.fullName}}</h6>
-                                            <!-- <p class="mb-0 ct_text_clr_6B7280">Author</p> -->
+                                            <p class="mb-0 ct_text_clr_6B7280">Reader</p>
                                         </div>
 
                                     </div>
                                 </td>
                                 <td class="ct_text_clr_6B7280">{{item.email}}</td>
-                                <td class="ct_text_clr_6B7280">{{item.numberOfFollower}}</td>
+                                <!-- <td class="ct_text_clr_6B7280">{{item.numberOfFollower}}</td> -->
                                 <td class="ct_text_clr_6B7280">{{item.numberOfFollowing}}</td>
                                 <td>
                                     @if(item.status == 1){
@@ -51,27 +51,67 @@
 
                                 <td [ngClass]="{'highlight-row': item.status == 1}">
                                     <div class="form-check form-switch ct_switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckDefault" [(ngModel)]="item.status"
-                                            [ngModel]="item.status == 0" (click)="handleCheckboxChange(item)">
+                                        <input #statusSwitch class="form-check-input" type="checkbox" role="switch"
+                                            id="flexSwitchCheckDefault" [checked]="item.status"
+                                            (click)="onSwitchClick($event, item, statusSwitch)" data-bs-toggle="modal"
+                                            data-bs-target="#ct_status_modal" />
                                     </div>
                                 </td>
-
                             </tr>
-
                         </tbody>
-
                     </table>
-
                 </div>
-
-
-
             </div>
-
-
         </div>
+    </div>
+</div>
 
-
+<div class="modal fade modal-md" id="ct_status_modal" tabindex="-1" aria-labelledby="ct_delete_modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content pb-4">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-0 pt-0">
+                <div class="ct_delete_modal_cnt">
+                    <div class="text-center mb-4 ct_delete_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 128 128">
+                            <path fill="#f2a600"
+                                d="m57.16 8.42l-52 104c-1.94 4.02-.26 8.85 3.75 10.79c1.08.52 2.25.8 3.45.81h104c4.46-.04 8.05-3.69 8.01-8.15a8.1 8.1 0 0 0-.81-3.45l-52-104a8.067 8.067 0 0 0-14.4 0" />
+                            <path fill="#ffcc32"
+                                d="m53.56 15.72l-48.8 97.4c-1.83 3.77-.25 8.31 3.52 10.14c.99.48 2.08.74 3.18.76h97.5a7.55 7.55 0 0 0 7.48-7.62a7.6 7.6 0 0 0-.78-3.28l-48.7-97.4a7.443 7.443 0 0 0-9.93-3.47a7.5 7.5 0 0 0-3.47 3.47" />
+                            <path fill="#424242"
+                                d="M64.36 34.02c4.6 0 8.3 3.7 8 8l-3.4 48c-.38 2.54-2.74 4.3-5.28 3.92a4.65 4.65 0 0 1-3.92-3.92l-3.4-48c-.3-4.3 3.4-8 8-8m0 64c3.31 0 6 2.69 6 6s-2.69 6-6 6s-6-2.69-6-6s2.69-6 6-6"
+                                opacity="0.2" />
+                            <linearGradient id="notoWarning0" x1="68" x2="68" y1="-1808.36" y2="-1887.05"
+                                gradientTransform="matrix(1 0 0 -1 -3.64 -1776.09)" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#424242" />
+                                <stop offset="1" stop-color="#212121" />
+                            </linearGradient>
+                            <path fill="url(#notoWarning0)"
+                                d="M64.36 34.02c4.6 0 8.3 3.7 8 8l-3.4 48c-.38 2.54-2.74 4.3-5.28 3.92a4.65 4.65 0 0 1-3.92-3.92l-3.4-48c-.3-4.3 3.4-8 8-8" />
+                            <linearGradient id="notoWarning1" x1="64.36" x2="64.36" y1="-1808.36" y2="-1887.05"
+                                gradientTransform="matrix(1 0 0 -1 0 -1772.11)" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#424242" />
+                                <stop offset="1" stop-color="#212121" />
+                            </linearGradient>
+                            <circle cx="64.36" cy="104.02" r="6" fill="url(#notoWarning1)" />
+                            <path fill="#fff170"
+                                d="M53.56 23.02c-1.2 1.5-21.4 41-21.4 41s-1.8 3 .7 4.7c2.3 1.6 4.4-.3 5.3-1.8s19.2-36.9 19.9-38.6c.6-1.87.18-3.91-1.1-5.4c-1.3-1.2-2.6-1-3.4.1" />
+                            <circle cx="31.36" cy="75.33" r="3.3" fill="#fff170" />
+                        </svg>
+                    </div>
+                    <h4 class="ct_fs_28 mb-3 ct_fw_600 text-center text-center">Are you sure?</h4>
+                    <p class="mb-0 text-center ct_fs_18">You want to deactive this reader!</p>
+                </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center ct_modal_footer">
+                <button type="button" class="ct_blue_btn ct_outline_blue w-100 ct_fw_600"
+                    data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="ct_blue_btn ct_btn_red w-100 ct_fw_600" (click)="handleCheckboxChange()"
+                    data-bs-dismiss="modal">Confirm</button>
+            </div>
+        </div>
     </div>
 </div>

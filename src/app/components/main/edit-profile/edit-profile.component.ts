@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,10 +20,11 @@ export class EditProfileComponent {
   name: any;
   phone: any;
   loading: boolean = false;
+  profilePreview: string | undefined
+  profileImage: File | null = null
+  // pattern1 = "^[0-9_-]{8,15}";
 
-  pattern1 = "^[0-9_-]{8,15}";
-
-  constructor(private route: Router, private service: SharedService) { }
+  constructor(private route: Router, private service: SharedService, private toastr: NzMessageService) { }
 
   ngOnInit() {
     this.initForm();
@@ -31,74 +33,72 @@ export class EditProfileComponent {
 
   initForm() {
     this.profileForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      phone: new FormControl('', [Validators.required, Validators.pattern(this.pattern1)]),
-      email: new FormControl({ value: this.userEmail, disabled: true }),
+      name: new FormControl('', [Validators.required, NoWhitespaceDirective.validate]),
+      // phone: new FormControl('', [Validators.required, Validators.pattern(this.pattern1)]),
+      email: new FormControl(''),
     });
   }
 
   loadUserProfile() {
-    this.service.get('get-profile').subscribe({
-      next: (resp: any) => {
-        this.userEmail = resp.admin.email;
-        this.name = resp.admin.name;
-        this.phone = resp.admin.phone_number;
-
+    this.service.profileData$.subscribe((data) => {
+      if (data) {
+        this.profilePreview = data.avatar_url;
         this.profileForm.patchValue({
-          name: this.name,
-          phone: this.phone,
-          email: this.userEmail,
+          name: data.fullName,
+          email: data.email,
         });
-
-      },
-      error: (error) => {
-        console.log(error.message);
       }
     });
   }
 
   onSubmit() {
-    // if (this.profileForm.valid) {
-    //   this.toastr.warning('Please check all the fields!');
-    //   return;
-    // }
-
-    const name = this.profileForm.value.name?.trim();
-    //const phone = this.profileForm.value.phone?.trim();
-
-    if (!name) {
-      return;
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched()
+      return
+    }
+    this.loading = true;
+    let formData = new FormData()
+    formData.append('fullName', this.profileForm.value.name)
+    if (this.profileImage) {
+      formData.append('avatar_url', this.profileImage)
     }
 
-    this.profileForm.markAllAsTouched();
-
-    if (this.profileForm.valid) {
-      this.loading = true;
-      const formURlData = new URLSearchParams();
-      formURlData.set('name', this.profileForm.value.name);
-      //formURlData.set('email', this.userEmail);
-      formURlData.set('phone_number', this.profileForm.value.phone);
-
-      this.service.postAPI('update-profile', formURlData.toString()).subscribe({
-        next: (resp: any) => {
-          if (resp.success === true) {
-            //this.toastr.success(resp.message);
-            this.loading = false;
-          } else {
-            //this.toastr.warning(resp.message);
-            this.loading = false;
-          }
-        },
-        error: (error) => {
-          //this.toastr.warning('Something went wrong.');
-          console.log(error.message);
+    this.service.update('editProfile', formData).subscribe({
+      next: (res: any) => {
+        if (res.success == true) {
+          this.toastr.success(res.message);
+          this.service.getProfile('getMyProfile')
+        } else {
           this.loading = false;
+          this.toastr.warning(res.message);
         }
-      });
-    } else {
-      //this.loading = false;
-      //this.toastr.warning('Please check all the fields!');
+      },
+      error: (error) => {
+        this.loading = false;
+        this.toastr.error(error);
+      }
+    });
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profilePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      this.profileImage = file
     }
   }
 
+}
+
+export class NoWhitespaceDirective {
+  static validate(control: AbstractControl): ValidationErrors | null {
+    if (!control.value || control.value.trim() == '') {
+      return { required: true };
+    }
+    return null;
+  }
 }

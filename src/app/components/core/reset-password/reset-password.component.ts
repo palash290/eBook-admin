@@ -1,51 +1,56 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { SharedService } from '../../services/shared.service';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
-  selector: 'app-change-password',
+  selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoaderComponent],
-  templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.css'
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, LoaderComponent],
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.css'
 })
-export class ChangePasswordComponent {
-
-  form!: FormGroup;
-  passwordMismatch = false;
+export class ResetPasswordComponent {
+  isShowNew: boolean = false;
+  isShowConfirm: boolean = false;
   loading: boolean = false;
+  Form!: FormGroup;
+  email!: string
 
-  constructor(private service: SharedService, private router: Router, private toster: NzMessageService) { }
+  constructor(private router: Router, private srevice: SharedService, private toster: NzMessageService) { }
 
   ngOnInit() {
+    const email = sessionStorage.getItem('email');
+    if (email) {
+      this.email = email
+    }
     this.initForm()
   }
 
   initForm() {
-    this.form = new FormGroup({
-      current_password: new FormControl('', Validators.required),
+    this.Form = new FormGroup({
       newPassword: new FormControl('', [Validators.required, strongPasswordValidator]),
-      confPassword: new FormControl('', Validators.required),
-    }, { validators: passwordMatchValidator() });
-
+      confPassword: new FormControl('', [Validators.required]),
+    }, {
+      validators: passwordMatchValidator()
+    })
   }
 
   onSubmit() {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
+    this.Form.markAllAsTouched();
+    if (this.Form.valid) {
       this.loading = true;
       const formURlData = new URLSearchParams();
-      formURlData.set('current_password', this.form.value.current_password);
-      formURlData.set('new_password', this.form.value.confPassword);
-      this.service.postAPI1('changePassword', formURlData.toString()).subscribe({
+      formURlData.set('email', this.email);
+      formURlData.set('password', this.Form.value.confPassword);
+      this.srevice.postAPI1('resetPassword', formURlData.toString()).subscribe({
         next: (res: any) => {
           if (res.success == true) {
-            this.toster.success(res.message);
-            // this.router.navigateByUrl('/');
+            // this.toster.success(res.message);
+            this.router.navigateByUrl('/reset-success');
             this.loading = false;
           } else {
             this.loading = false;
@@ -54,30 +59,11 @@ export class ChangePasswordComponent {
         },
         error: (error) => {
           this.loading = false;
-          this.toster.error(error.error.message);
+          this.toster.error(error);
         }
       });
     }
   }
-
-  isPasswordVisible1: boolean = false;
-
-  togglePasswordVisibility1() {
-    this.isPasswordVisible1 = !this.isPasswordVisible1;
-  }
-
-  isPasswordVisible2: boolean = false;
-
-  togglePasswordVisibility2() {
-    this.isPasswordVisible2 = !this.isPasswordVisible2;
-  }
-
-  isPasswordVisible3: boolean = false;
-
-  togglePasswordVisibility3() {
-    this.isPasswordVisible3 = !this.isPasswordVisible3;
-  }
-
 }
 
 export function strongPasswordValidator(

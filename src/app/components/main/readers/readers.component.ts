@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class ReadersComponent {
 
   data: any;
-
+  userId: number | undefined;
   constructor(private service: SharedService) { }
 
   ngOnInit() {
@@ -32,55 +32,18 @@ export class ReadersComponent {
     });
   }
 
-  handleCheckboxChange(row: any) {
-    //row.status = row.status === 0 ? 1 : 0;
-    //debugger
-    if (row.status == 0) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You want to active this author!",
-        icon: "success",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
-        cancelButtonText: "No"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.service.getApi(`toggleUserStatusByAdmin/${row.id}`).subscribe({
-            next: resp => {
-              //this.toastr.success(resp.message)
-              this.getData();
-            }
-          })
-        } else {
-          this.getData();
-        }
-      });
-    } else {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You want to deactive this author!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!",
-        cancelButtonText: "No"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.service.getApi(`toggleUserStatusByAdmin/${row.id}`).subscribe({
-            next: resp => {
-              //this.toastr.success(resp.message)
-              this.getData();
-            }
-          })
-        } else {
-          this.getData();
-        }
-      });
-    }
+  handleCheckboxChange() {
+    this.service.getApi(`toggleUserStatusByAdmin/${this.userId}`).subscribe({
+      next: resp => {
+        this.getData();
+      }
+    })
   }
-  
 
+  selectedSwitch: any;
+  onSwitchClick(event: Event, item: any, switchRef: HTMLInputElement) {
+    event.preventDefault();
+    this.userId = item.id;
+    this.selectedSwitch = switchRef;
+  }
 }

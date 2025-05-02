@@ -2,21 +2,33 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="ct_light_blue_bg">
-                <div class="ct_full_height ct_pt_127">
+                <div class="ct_full_height">
                     <div class="ct_edit_profile_bg">
-                        <h4 class="ct_fs_24 text-center ct_mb_50 ct_fw_600">Edit Profile</h4>
-                        <form [formGroup]="profileForm">
+                        <h4 class="ct_fs_24 text-center mb-4 ct_fw_600">Edit Profile</h4>
+                        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                            <div class="d-flex justify-content-center mb-4">
+                                <div class="ct_upload_user_profile_img">
+                                    <img [src]="profilePreview ? profilePreview : 'assets/img/avatar.png'" alt="">
+                                    <label for="ct_upload_user_profile2" class="position-relative d-block">
+                                        <input type="file" class="d-none" id="ct_upload_user_profile2"
+                                            (change)="onFileChange($event)">
+                                        <div class="ct_authore_banner_upload_icon_12">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="" class="mb-2 ct_fw_500">Full Name</label>
                                 <input type="text" class="form-control ct_input ct_input_grey_bg"
-                                    placeholder="Enter first name" formControlName="name">
+                                    placeholder="Enter full name" formControlName="name">
                                 <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
                                     class="err_msg">
                                     <div *ngIf="profileForm.controls['name'].errors?.['required']">Please enter
                                         your name.</div>
                                 </div>
                             </div>
-                            <div class="form-group mb-3">
+                            <!-- <div class="form-group mb-3">
                                 <label for="" class="mb-2 ct_fw_500">Contact No</label>
                                 <input type="text" class="form-control ct_input ct_input_grey_bg"
                                     placeholder="Enter contact no" formControlName="phone">
@@ -28,14 +40,14 @@
                                         be
                                         between 8 and 15 digits.</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group mb-3">
                                 <label for="" class="mb-2 ct_fw_500">Email</label>
                                 <input type="text" class="form-control ct_input ct_input_grey_bg"
-                                    placeholder="Enter your email" formControlName="email">
+                                    placeholder="Enter your email" formControlName="email" readonly>
                             </div>
                             <div class="text-center">
-                                <button class="ct_blue_btn  mt-4">Update Profile</button>
+                                <button type="submit" class="ct_blue_btn mt-4">Update Profile</button>
                             </div>
                         </form>
                     </div>

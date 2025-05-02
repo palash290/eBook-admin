@@ -8,7 +8,7 @@
                         <div class="ct_card_title">
                             <h6 class="ct_fs_16 mb-2 ct_black_text ct_text_op_07 ">Total eBooks
                             </h6>
-                            <h4 class="mb-0  ct_fs_28 ct_fw_600">2,461</h4>
+                            <h4 class="mb-0  ct_fs_28 ct_fw_600">{{data?.TotalBooks}}</h4>
                         </div>
                         <div>
                             <img src="assets/img/card_icon_1.png" alt="">
@@ -21,9 +21,24 @@
                 <div class="ct_dash_card">
                     <div class="ct_dash_card_grid_2">
                         <div class="ct_card_title">
-                            <h6 class="ct_fs_16 mb-2 ct_black_text ct_text_op_07 ">Total Users
+                            <h6 class="ct_fs_16 mb-2 ct_black_text ct_text_op_07 ">Total Readers
                             </h6>
-                            <h4 class="mb-0  ct_fs_28 ct_fw_600">14,857</h4>
+                            <h4 class="mb-0  ct_fs_28 ct_fw_600">{{data?.TotalUsers}}</h4>
+                        </div>
+                        <div>
+                            <img src="assets/img/card_icon_2.png" alt="">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class=" col-xxl-3 col-lg-6 col-md-6 mb-4">
+                <div class="ct_dash_card">
+                    <div class="ct_dash_card_grid_2">
+                        <div class="ct_card_title">
+                            <h6 class="ct_fs_16 mb-2 ct_black_text ct_text_op_07 ">Total Authors
+                            </h6>
+                            <h4 class="mb-0  ct_fs_28 ct_fw_600">{{data?.TotalAuthors}}</h4>
                         </div>
                         <div>
                             <img src="assets/img/card_icon_2.png" alt="">
@@ -39,7 +54,7 @@
                         <div class="ct_card_title">
                             <h6 class="ct_fs_16 mb-2 ct_black_text ct_text_op_07 ">Active Chatrooms
                             </h6>
-                            <h4 class="mb-0  ct_fs_28 ct_fw_600">384</h4>
+                            <h4 class="mb-0  ct_fs_28 ct_fw_600">{{data?.ActiveChatRoom}}</h4>
                         </div>
                         <div>
                             <img src="assets/img/card_icon_3.png" alt="">
@@ -49,7 +64,7 @@
                 </div>
             </div>
 
-            <div class=" col-xxl-3 col-lg-6 col-md-6 mb-4">
+            <!-- <div class=" col-xxl-3 col-lg-6 col-md-6 mb-4">
                 <div class="ct_dash_card">
                     <div class="ct_dash_card_grid_2">
                         <div class="ct_card_title">
@@ -63,7 +78,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> -->
 
         </div>
         <div class="row ">

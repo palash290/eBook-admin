@@ -1,0 +1,10 @@
+.ct_scroll {
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+}
+
+img.chat_img {
+      height: 50px;
+      width: 40px;
+      border-radius: 5px;
+}

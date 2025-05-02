@@ -1,18 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
-.err_msg {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    /* flex-direction: row-reverse; */
-    color: red;
-  }
-
-  .ct_switch .form-check-input {
-    height: 20px;
-    cursor: pointer;
+.err_msg,
+.error-message {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* flex-direction: row-reverse; */
+  color: red;
 }
 
-.ct_switch .form-check-input:focus{
-    box-shadow: unset;
+.ct_switch .form-check-input {
+  height: 20px;
+  cursor: pointer;
+}
+
+.ct_switch .form-check-input:focus {
+  box-shadow: unset;
+}
+
+a {
+  color: #000000 !important;
+}
+
+button.swal2-confirm.swal2-styled.swal2-default-outline {
+  background: #9747ff !important;
+}
+
+.form-check-input:checked {
+  background-color: #9f47f8 !important;
+  border-color: #9f47f8 !important;
 }

@@ -5,6 +5,15 @@ export const routes: Routes = [
     { path: '', loadComponent: () => import('./components/core/login/login.component').then(m => m.LoginComponent), pathMatch: 'full' },
     { path: 'forgot-password', loadComponent: () => import('./components/core/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
     {
+        path: 'otp-verification', loadComponent: () => import('./components/core/otp-verification/otp-verification.component').then(m => m.OtpVerificationComponent)
+    },
+    {
+        path: 'reset-password', loadComponent: () => import('./components/core/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+    },
+    {
+        path: 'reset-success', loadComponent: () => import('./components/core/reset-success/reset-success.component').then(m => m.ResetSuccessComponent)
+    },
+    {
         path: 'home',
         component: RootComponent,
         children: [
@@ -17,6 +26,9 @@ export const routes: Routes = [
                 path: 'authers', loadComponent: () => import('./components/main/authers/authers.component').then(m => m.AuthersComponent)
             },
             {
+                path: 'auther-detail', loadComponent: () => import('./components/main/authers/author-detail/author-detail.component').then(m => m.AuthorDetailComponent)
+            },
+            {
                 path: 'chat-room', loadComponent: () => import('./components/main/chat-room/chat-room.component').then(m => m.ChatRoomComponent)
             },
             {
@@ -27,6 +39,10 @@ export const routes: Routes = [
             },
             {
                 path: 'e-book', loadComponent: () => import('./components/main/e-book/e-book.component').then(m => m.EBookComponent)
+
+            },
+            {
+                path: 'e-book-detail', loadComponent: () => import('./components/main/e-book/book-details/book-details.component').then(m => m.BookDetailsComponent)
 
             },
             {
