@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,7 +11,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './readers.component.css'
 })
 export class ReadersComponent {
-
+  searchQuery: string = '';
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalCount: number = 0;
+  pageSizeOptions = [5, 10, 25, 50];
   data: any;
   userId: number | undefined;
   constructor(private service: SharedService) { }
@@ -22,9 +25,10 @@ export class ReadersComponent {
   }
 
   getData() {
-    this.service.getApi('getAllReader').subscribe({
+    this.service.getApi(`getAllReader?search=${this.searchQuery}&page=${this.currentPage}&limit=${this.pageSize}`).subscribe({
       next: (resp: any) => {
         this.data = resp.readers;
+        this.totalCount = resp.totalCount;
       },
       error: error => {
         console.log(error.message);
@@ -45,5 +49,26 @@ export class ReadersComponent {
     event.preventDefault();
     this.userId = item.id;
     this.selectedSwitch = switchRef;
+  }
+
+  search(event: any) {
+    this.searchQuery = event.target.value.trim().toLowerCase();
+    this.currentPage = 1;
+    this.getData();
+  }
+  changePage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.getData();
+  }
+
+  changePageSize(newPageSize: number) {
+    this.pageSize = newPageSize;
+    this.currentPage = 1;
+    this.getData();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalCount / this.pageSize);
   }
 }

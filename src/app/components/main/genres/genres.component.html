@@ -1,0 +1,152 @@
+<div class="ct_px_30">
+      <div class="container-fluid">
+            <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                  <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_600 ct_border_btm_1 pb-2 ct_w_fit_content mb-0">Genre
+                        Management
+                  </h4>
+                  <div class="d-flex justify-content-end gap-2 align-items-center">
+                        <div class=" ct_search ">
+                              <input type=" text" class="form-control" style="padding-right: 34px;" placeholder="Search"
+                                    (input)="search($event)">
+                              <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <button class="ct_blue_btn" data-bs-toggle="modal" data-bs-target="#ct_Add_modal">Add
+                              Genre</button>
+                  </div>
+            </div>
+
+            <div class="row ">
+                  <div class="col-md-12">
+                        <div class="table-responsive ">
+                              <table class="table ct_custom_table">
+                                    <thead>
+                                          <tr>
+                                                <th>S No.</th>
+                                                <th>Name</th>
+                                                <th>Action</th>
+                                          </tr>
+                                    </thead>
+                                    <tbody>
+                                          @if(data.length == 0){
+                                          <tr>
+                                                <td colspan="3" class="text-center ct_fs_18 ct_fw_600 mb-0">No genres
+                                                      found</td>
+                                          </tr>
+                                          }
+                                          <tr *ngFor="let item of data; let i = index">
+                                                <td>{{i + 1}}</td>
+                                                <td class="ct_text_clr_6B7280">{{item.name}}</td>
+                                                <td>
+                                                      <div class="d-flex align-items-center gap-2">
+                                                            <i data-bs-toggle="modal" data-bs-target="#ct_Add_modal"
+                                                                  class="fa-solid fa-pencil ct_fs_14"
+                                                                  (click)="editGenre(item)"
+                                                                  style="cursor: pointer; color: gray;"></i>
+                                                            <i class="fa-solid fa-trash-can text-danger ct_fs_14"
+                                                                  data-bs-toggle="modal"
+                                                                  data-bs-target="#ct_delete_modal"
+                                                                  (click)="genreId = item.id"></i>
+                                                      </div>
+                                                </td>
+                                          </tr>
+                                    </tbody>
+                              </table>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                              <div class="d-flex align-items-center gap-2 ct_text_clr_6B7280">
+                                    <label for="pageSize" class="ct_fs_18">Items per page: </label>
+                                    <select id="pageSize" class="pageSize" [(ngModel)]="pageSize"
+                                          (change)="changePageSize(pageSize)">
+                                          <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}
+                                          </option>
+                                    </select>
+                              </div>
+
+                              <!-- Pagination -->
+                              <nav aria-label="Table pagination">
+                                    <ul class="pagination mb-0">
+                                          <li class="page-item" [class.disabled]="currentPage === 1">
+                                                <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+                                          </li>
+                                          <li class="page-item d-flex align-items-center mx-2">
+                                                <div class="ct_fs_18">
+                                                      Page {{ currentPage }} of {{ totalPages }}
+                                                </div>
+                                          </li>
+                                          <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                                <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+                                          </li>
+                                    </ul>
+                              </nav>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+
+<!-- Add/Update Modal S -->
+<div class="modal fade modal-md" id="ct_Add_modal" tabindex="-1" aria-labelledby="ct_delete_modalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                  <div class="modal-header border-0 mb-4">
+                        <h4 class="ct_fs_24 text-center mb-0 ct_fw_600">{{genreId ? 'Update' : 'Add'}} Genre</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form [formGroup]="genreForm" (ngSubmit)="onSubmit()">
+                        <div class="modal-body border-0 pt-0">
+                              <div class="form-group mb-3">
+                                    <label for="" class="mb-2 ct_fw_500">Genre name</label>
+                                    <input type="text" class="form-control ct_input ct_input_grey_bg"
+                                          placeholder="Enter genre name" formControlName="name">
+                                    <div *ngIf="genreForm.controls['name'].invalid && genreForm.controls['name'].touched"
+                                          class="err_msg">
+                                          <div *ngIf="genreForm.controls['name'].errors?.['required']">Name is required.
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="modal-footer border-0 justify-content-end ct_modal_footer">
+                              <button #closeModal type="button" class="ct_blue_btn ct_outline_blue ct_fw_600"
+                                    data-bs-dismiss="modal" (click)="resetForm()">Cancel</button>
+
+                              <button type="submit" class="ct_blue_btn">{{genreId ? 'Update' : 'Add'}}</button>
+                        </div>
+                  </form>
+            </div>
+      </div>
+</div>
+
+<!-- delete Modal S -->
+<div class="modal fade modal-md" id="ct_delete_modal" tabindex="-1" aria-labelledby="ct_delete_modalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content pb-4">
+                  <div class="modal-header border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body border-0 pt-0">
+                        <div class="ct_delete_modal_cnt">
+                              <div class="text-center mb-4 ct_delete_icon">
+                                    <svg width="40" height="40" viewBox="0 0 25 25" fill="none"
+                                          xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M15.0447 9.86869L14.6987 18.8687M9.91069 18.8687L9.56469 9.86869M19.5327 6.65869C19.8747 6.71069 20.2147 6.76569 20.5547 6.82469M19.5327 6.65869L18.4647 20.5417C18.4211 21.1069 18.1658 21.6349 17.7497 22.0199C17.3337 22.405 16.7876 22.6189 16.2207 22.6187H8.38869C7.82178 22.6189 7.27571 22.405 6.85967 22.0199C6.44362 21.6349 6.18828 21.1069 6.14469 20.5417L5.07669 6.65869M19.5327 6.65869C18.3786 6.4842 17.2185 6.35178 16.0547 6.26169M5.07669 6.65869C4.73469 6.70969 4.39469 6.76469 4.05469 6.82369M5.07669 6.65869C6.23082 6.4842 7.39092 6.35178 8.55469 6.26169M16.0547 6.26169V5.34569C16.0547 4.16569 15.1447 3.18169 13.9647 3.14469C12.8583 3.10932 11.7511 3.10932 10.6447 3.14469C9.46469 3.18169 8.55469 4.16669 8.55469 5.34569V6.26169M16.0547 6.26169C13.5584 6.06876 11.051 6.06876 8.55469 6.26169"
+                                                stroke="#EF331E" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                    </svg>
+                              </div>
+                              <h4 class="ct_fs_28 mb-3 ct_fw_600 text-center text-center">Confirm Delete</h4>
+                              <p class="mb-0 text-center ct_fs_18"> Are you sure? you want to delete it.</p>
+                        </div>
+                  </div>
+                  <div class="modal-footer border-0 justify-content-center ct_modal_footer">
+                        <button type="button" class="ct_blue_btn ct_outline_blue w-100 ct_fw_600"
+                              data-bs-dismiss="modal">Cancel</button>
+
+                        <button type="button" class="ct_blue_btn ct_btn_red w-100 ct_fw_600" (click)="deleteGenre()"
+                              data-bs-dismiss="modal">Confirm</button>
+                  </div>
+            </div>
+      </div>
+</div>
+<!-- delete Modal E -->

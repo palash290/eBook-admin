@@ -36,7 +36,11 @@ export class SharedService {
       };
 
       postAPI<T, U>(url: string, data: U): Observable<T> {
-            return this.http.post<T>(this.baseUrl + url, data)
+            const authToken = localStorage.getItem('eBookAdmin')
+            const headers = new HttpHeaders({
+                  Authorization: `Bearer ${authToken}`
+            })
+            return this.http.post<T>(this.baseUrl + url, data, { headers: headers })
       };
       update<T, U>(url: string, data: U): Observable<T> {
             const authToken = localStorage.getItem('eBookAdmin')

@@ -30,3 +30,34 @@ button.swal2-confirm.swal2-styled.swal2-default-outline {
   background-color: #9f47f8 !important;
   border-color: #9f47f8 !important;
 }
+
+.pageSize {
+  padding: 3px 5px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid gray;
+}
+
+.table-responsive {
+  max-height: calc(100vh - 235px);
+  border-radius: 10px;
+}
+
+.table>thead {
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  background: #f2f2f2;
+}
+
+.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  cursor: text;
+  min-height: 45px;
+  outline: none;
+  background-color: #eff1f999;
+  border: 1px solid #eff1f999;
+}
+
+.ant-select-selection-placeholder {
+  color: #565a5e !important;
+}

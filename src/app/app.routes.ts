@@ -1,21 +1,25 @@
 import { Routes } from '@angular/router';
 import { RootComponent } from './components/main/root/root.component';
+import { LoginGuard } from './guards/login.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', loadComponent: () => import('./components/core/login/login.component').then(m => m.LoginComponent), pathMatch: 'full' },
-    { path: 'forgot-password', loadComponent: () => import('./components/core/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+    { path: '', loadComponent: () => import('./components/core/login/login.component').then(m => m.LoginComponent), pathMatch: 'full', canActivate: [LoginGuard] },
+    { path: 'forgot-password', loadComponent: () => import('./components/core/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent), canActivate: [LoginGuard] },
     {
-        path: 'otp-verification', loadComponent: () => import('./components/core/otp-verification/otp-verification.component').then(m => m.OtpVerificationComponent)
+        path: 'otp-verification', loadComponent: () => import('./components/core/otp-verification/otp-verification.component').then(m => m.OtpVerificationComponent), canActivate: [LoginGuard]
     },
     {
-        path: 'reset-password', loadComponent: () => import('./components/core/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+        path: 'reset-password', loadComponent: () => import('./components/core/reset-password/reset-password.component').then(m => m.ResetPasswordComponent), canActivate: [LoginGuard]
     },
     {
-        path: 'reset-success', loadComponent: () => import('./components/core/reset-success/reset-success.component').then(m => m.ResetSuccessComponent)
+        path: 'reset-success', loadComponent: () => import('./components/core/reset-success/reset-success.component').then(m => m.ResetSuccessComponent), canActivate: [LoginGuard]
     },
     {
         path: 'home',
         component: RootComponent,
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         children: [
             {
                 path: 'dashboard',
@@ -39,11 +43,12 @@ export const routes: Routes = [
             },
             {
                 path: 'e-book', loadComponent: () => import('./components/main/e-book/e-book.component').then(m => m.EBookComponent)
-
             },
             {
                 path: 'e-book-detail', loadComponent: () => import('./components/main/e-book/book-details/book-details.component').then(m => m.BookDetailsComponent)
-
+            },
+            {
+                path: 'add-e-book', loadComponent: () => import('./components/main/e-book/add-book/add-book.component').then(m => m.AddBookComponent)
             },
             {
                 path: 'order-history', loadComponent: () => import('./components/main/order-history/order-history.component').then(m => m.OrderHistoryComponent)
@@ -59,6 +64,9 @@ export const routes: Routes = [
             },
             {
                 path: 'change-password', loadComponent: () => import('./components/main/change-password/change-password.component').then(m => m.ChangePasswordComponent)
+            },
+            {
+                path: 'genre-management', loadComponent: () => import('./components/main/genres/genres.component').then(m => m.GenresComponent)
             },
         ]
     },

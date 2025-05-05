@@ -3,16 +3,17 @@ import { SharedService } from '../../../services/shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule, DatePipe, Location } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { LoaderComponent } from "../../../shared/loader/loader.component";
 @Component({
   selector: 'app-talk',
   standalone: true,
-  imports: [CommonModule, NzImageModule],
+  imports: [CommonModule, NzImageModule, LoaderComponent],
   templateUrl: './talk.component.html',
   styleUrl: './talk.component.css',
   providers: [DatePipe]
 })
 export class TalkComponent {
-
+  loading: boolean = false;
   data: any;
   chatId: any;
   constructor(private service: SharedService, private route: ActivatedRoute, public location: Location, private datePipe: DatePipe) {
@@ -29,12 +30,15 @@ export class TalkComponent {
   }
 
   getData() {
+    this.loading = true
     this.service.getApi(`getAllChats/${this.chatId}`).subscribe({
       next: (resp: any) => {
         this.data = resp.data;
+        this.loading = false
       },
       error: error => {
         console.log(error.message);
+        this.loading = false
       }
     });
   }

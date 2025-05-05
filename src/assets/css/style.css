@@ -152,11 +152,11 @@ h6 {
 .ct_blue_btn {
   color: #fff;
   background-color: var(--purple);
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   outline: none;
   border: 1px solid var(--purple);
-  padding: 10px 30px;
+  padding: 5px 30px;
   transition: 0.4s ease all;
   overflow: hidden;
   position: relative;
@@ -549,16 +549,20 @@ header {
   border: 0px;
   vertical-align: middle;
   white-space: nowrap;
-  padding: 16px 46px;
+  padding: 16px 20px;
 }
 
 .ct_custom_table tr th {
   background: #0000000f;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  /* border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb; */
   color: #6b7280;
   font-weight: 600;
   font-size: 18px;
+}
+
+.ct_custom_table tr {
+  border: 1px solid #e4e4e491;
 }
 
 .ct_custom_table tr th:first-child {
@@ -604,7 +608,6 @@ table.table.ct_user_border_0 {
 
 .ct_search {
   position: relative;
-  width: 100%;
 }
 
 .ct_search i {
@@ -742,6 +745,7 @@ button.btn-close.ct_close {
   display: flex;
   align-items: center;
   justify-content: center;
+  left: 0;
 }
 
 .ct_loader_main svg {
@@ -1230,7 +1234,7 @@ span.ct_badge {
 
 /* width */
 .ct_participent_scroll::-webkit-scrollbar {
-  width: 4px;
+  width: 2x;
 }
 
 /* Track */

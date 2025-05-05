@@ -1,8 +1,15 @@
 <div class="ct_px_30">
     <div class="container-fluid">
-        <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_600 mb-5 ct_border_btm_1 pb-2 ct_w_fit_content">Contact
-            Us
-        </h4>
+        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+            <h4 class="ct_fs_18 ct_text_clr_6B7280 ct_fw_600 ct_border_btm_1 pb-2 ct_w_fit_content mb-0">Contact
+                Us
+            </h4>
+            <div class="ct_search ">
+                <input type="text" class="form-control" style="padding-right: 34px;" placeholder="Search"
+                    (input)="search($event)">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
 
         <div class="row ">
             <div class="col-md-12">
@@ -10,7 +17,7 @@
                     <table class="table ct_custom_table">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>S No.</th>
                                 <th>User </th>
                                 <th>Description</th>
                                 <th>Date</th>
@@ -19,189 +26,65 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(data.length == 0){
+                            <tr>
+                                <td colspan="6" class="text-center ct_fs_18 ct_fw_600 mb-0">No data found</td>
+                            </tr>
+                            }
+                            @for (item of data; track $index) {
                             <tr>
                                 <td>
-                                    1
+                                    {{ $index + 1 }}
                                 </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
+                                <td class="ct_text_clr_6B7280">{{ item.user.fullName}}</td>
+                                <td class="ct_text_clr_6B7280 description">{{item.description}}</td>
                                 <td class="ct_text_clr_6B7280">
-                                    2025-01-10
+                                    {{item.createdAt | date}}
                                 </td>
                                 <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
+                                    {{item.user.email}}
                                 </td>
                                 <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
+                                    @if(item.isResolved){
+                                    <span class="ct_badge"
+                                        style="color: #166534; background-color: #DCFCE7;">Resolved</span>
+                                    } @else {
+                                    <a class="ct_purple_link" (click)="markAsResolved(item.id)">Mark resolve</a>
+                                    }
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    2
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    3
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    4
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    5
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    6
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    7
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    8
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    9
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    10
-                                </td>
-                                <td class="ct_text_clr_6B7280">John Wick</td>
-                                <td class="ct_text_clr_6B7280">issue while downloading</td>
-                                <td class="ct_text_clr_6B7280">
-                                    2025-01-10
-                                </td>
-                                <td class="ct_text_clr_6B7280">
-                                    john.smithexample.com
-                                </td>
-                                <td>
-                                    <a  class="ct_purple_link">Mark resolve</a>
-                                </td>
-                            </tr>
-
-
+                            }
                         </tbody>
-
                     </table>
-
                 </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="d-flex align-items-center gap-2 ct_text_clr_6B7280">
+                        <label for="pageSize" class="ct_fs_18">Items per page: </label>
+                        <select id="pageSize" class="pageSize" [(ngModel)]="pageSize"
+                            (change)="changePageSize(pageSize)">
+                            <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}
+                            </option>
+                        </select>
+                    </div>
 
-
-
+                    <!-- Pagination -->
+                    <nav aria-label="Table pagination">
+                        <ul class="pagination mb-0">
+                            <li class="page-item" [class.disabled]="currentPage === 1">
+                                <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+                            </li>
+                            <li class="page-item d-flex align-items-center mx-2">
+                                <div class="ct_fs_18">
+                                    Page {{ currentPage }} of {{ totalPages }}
+                                </div>
+                            </li>
+                            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-
-
         </div>
-
-
     </div>
 </div>

@@ -14,7 +14,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './authers.component.css'
 })
 export class AuthersComponent {
-
+  searchQuery: string = '';
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalCount: number = 0;
+  pageSizeOptions = [5, 10, 25, 50];
   data: any;
   authorId: number | undefined
   constructor(private service: SharedService) { }
@@ -24,9 +28,10 @@ export class AuthersComponent {
   }
 
   getData() {
-    this.service.getApi('getAllAuthor').subscribe({
+    this.service.getApi(`getAllAuthor?search=${this.searchQuery}&page=${this.currentPage}&limit=${this.pageSize}`).subscribe({
       next: (resp: any) => {
         this.data = resp.authors;
+        this.totalCount = resp.totaCount;
       },
       error: error => {
         console.log(error.message);
@@ -47,5 +52,26 @@ export class AuthersComponent {
     event.preventDefault();
     this.authorId = item.id;
     this.selectedSwitch = switchRef;
+  }
+
+  search(event: any) {
+    this.searchQuery = event.target.value.trim().toLowerCase();
+    this.currentPage = 1;
+    this.getData();
+  }
+  changePage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.getData();
+  }
+
+  changePageSize(newPageSize: number) {
+    this.pageSize = newPageSize;
+    this.currentPage = 1;
+    this.getData();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalCount / this.pageSize);
   }
 }
