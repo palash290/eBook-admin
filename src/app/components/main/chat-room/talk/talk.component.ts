@@ -30,15 +30,14 @@ export class TalkComponent {
   }
 
   getData() {
-    this.loading = true
+
     this.service.getApi(`getAllChats/${this.chatId}`).subscribe({
       next: (resp: any) => {
         this.data = resp.data;
-        this.loading = false
       },
       error: error => {
         console.log(error.message);
-        this.loading = false
+        // this.loading = false
       }
     });
   }

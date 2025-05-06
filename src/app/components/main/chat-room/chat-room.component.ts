@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-chat-room',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, LoaderComponent],
   templateUrl: './chat-room.component.html',
   styleUrl: './chat-room.component.css'
 })
@@ -18,9 +19,11 @@ export class ChatRoomComponent {
   pageSize: number = 5;
   totalCount: number = 0;
   pageSizeOptions = [5, 10, 25, 50];
+  loading: boolean = false
   constructor(private service: SharedService) { }
 
   ngOnInit() {
+    this.loading = true
     this.getData();
   }
 
@@ -29,9 +32,11 @@ export class ChatRoomComponent {
       next: (resp: any) => {
         this.data = resp.chats;
         this.totalCount = resp.totalCount;
+        this.loading = false
       },
       error: error => {
         console.log(error.message);
+        this.loading = false
       }
     });
   }

@@ -18,6 +18,7 @@ export class ReadersComponent {
   pageSizeOptions = [5, 10, 25, 50];
   data: any;
   userId: number | undefined;
+  status: number | undefined;
   constructor(private service: SharedService) { }
 
   ngOnInit() {
@@ -46,6 +47,7 @@ export class ReadersComponent {
 
   selectedSwitch: any;
   onSwitchClick(event: Event, item: any, switchRef: HTMLInputElement) {
+    this.status = item.status
     event.preventDefault();
     this.userId = item.id;
     this.selectedSwitch = switchRef;

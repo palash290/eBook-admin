@@ -31,7 +31,7 @@
                             </tr>
                             }
                             <tr *ngFor="let item of data; let i = index">
-                                <td>{{i+1}}</td>
+                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
                                         <img [src]="item.avatar_url ? item.avatar_url : 'assets/img/avatar.png'" alt=""
@@ -52,7 +52,7 @@
                                         style="color: #166534; background-color: #DCFCE7;">Active</span>
                                     } @else {
                                     <span class="ct_badge"
-                                        style="color: #651d16; background-color: #fce1dc;">Deactive</span>
+                                        style="color: #651d16; background-color: #fce1dc;">Inactive</span>
                                     }
 
                                 </td>
@@ -141,7 +141,7 @@
                         </svg>
                     </div>
                     <h4 class="ct_fs_28 mb-3 ct_fw_600 text-center text-center">Are you sure?</h4>
-                    <p class="mb-0 text-center ct_fs_18">You want to deactive this reader!</p>
+                    <p class="mb-0 text-center ct_fs_18">You want to {{status === 1 ? 'inactive' : 'active'}} this reader!</p>
                 </div>
             </div>
             <div class="modal-footer border-0 justify-content-center ct_modal_footer">

@@ -21,6 +21,7 @@ export class AuthersComponent {
   pageSizeOptions = [5, 10, 25, 50];
   data: any;
   authorId: number | undefined
+  status: number | undefined
   constructor(private service: SharedService) { }
 
   ngOnInit() {
@@ -49,6 +50,7 @@ export class AuthersComponent {
 
   selectedSwitch: any;
   onSwitchClick(event: Event, item: any, switchRef: HTMLInputElement) {
+    this.status = item.status
     event.preventDefault();
     this.authorId = item.id;
     this.selectedSwitch = switchRef;

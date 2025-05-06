@@ -31,9 +31,7 @@
                             }
                             @for (item of data; track $index) {
                             <tr>
-                                <td>
-                                    {{ $index + 1 }}
-                                </td>
+                                <td>{{ (currentPage - 1) * pageSize + $index + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
                                         <img [src]="item.profilePic ? item.profilePic :  'assets/img/np_pro.png'" alt=""
@@ -88,3 +86,4 @@
         </div>
     </div>
 </div>
+<app-loader *ngIf="loading"></app-loader>

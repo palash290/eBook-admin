@@ -20,9 +20,9 @@
                                 <th>S No.</th>
                                 <th>User </th>
                                 <th>Description</th>
-                                <th>Date</th>
                                 <th>Contact detail</th>
-                                <th>Action</th>
+                                <th>Date</th>
+                                <!-- <th>Action</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -33,25 +33,26 @@
                             }
                             @for (item of data; track $index) {
                             <tr>
-                                <td>
-                                    {{ $index + 1 }}
+                                <td>{{ (currentPage - 1) * pageSize + $index + 1 }}</td>
+                                <td class="ct_text_clr_6B7280">
+                                    {{ item.user?.fullName ? item.user?.fullName : item?.fullName}}
                                 </td>
-                                <td class="ct_text_clr_6B7280">{{ item.user.fullName}}</td>
                                 <td class="ct_text_clr_6B7280 description">{{item.description}}</td>
+                                <td class="ct_text_clr_6B7280">
+                                    {{item.user?.email ? item.user?.email : item?.email}}
+                                </td>
                                 <td class="ct_text_clr_6B7280">
                                     {{item.createdAt | date}}
                                 </td>
-                                <td class="ct_text_clr_6B7280">
-                                    {{item.user.email}}
-                                </td>
-                                <td>
+
+                                <!-- <td>
                                     @if(item.isResolved){
                                     <span class="ct_badge"
                                         style="color: #166534; background-color: #DCFCE7;">Resolved</span>
                                     } @else {
                                     <a class="ct_purple_link" (click)="markAsResolved(item.id)">Mark resolve</a>
                                     }
-                                </td>
+                                </td> -->
                             </tr>
                             }
                         </tbody>

@@ -37,7 +37,7 @@
                             </tr>
                             }
                             <tr *ngFor="let item of data; let i = index">
-                                <td>{{i + 1}}</td>
+                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
                                         <img [src]="item.coverImage ? item.coverImage : 'assets/img/avatar.png'" alt=""
@@ -117,7 +117,7 @@
                         </svg>
                     </div>
                     <h4 class="ct_fs_28 mb-3 ct_fw_600 text-center text-center">Confirm Delete</h4>
-                    <p class="mb-0 text-center ct_fs_18"> Are you sure? you want to delete it.</p>
+                    <p class="mb-0 text-center ct_fs_18"> Are you sure? you want to delete this.</p>
 
 
                 </div>

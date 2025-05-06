@@ -75,7 +75,7 @@ export class GenresComponent {
       return
     }
     this.loading = true;
-    let formData = { name: this.genreForm.value.name }
+    let formData = { name: this.genreForm.value.name.trim() };
 
     if (this.genreId) {
       this.service.update(`updateCategory/${this.genreId}`, formData).subscribe({

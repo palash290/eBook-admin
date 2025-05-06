@@ -34,7 +34,7 @@
                                           </tr>
                                           }
                                           <tr *ngFor="let item of data; let i = index">
-                                                <td>{{i + 1}}</td>
+                                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                                 <td class="ct_text_clr_6B7280">{{item.name}}</td>
                                                 <td>
                                                       <div class="d-flex align-items-center gap-2">
@@ -42,10 +42,10 @@
                                                                   class="fa-solid fa-pencil ct_fs_14"
                                                                   (click)="editGenre(item)"
                                                                   style="cursor: pointer; color: gray;"></i>
-                                                            <i class="fa-solid fa-trash-can text-danger ct_fs_14"
+                                                            <!-- <i class="fa-solid fa-trash-can text-danger ct_fs_14"
                                                                   data-bs-toggle="modal"
                                                                   data-bs-target="#ct_delete_modal"
-                                                                  (click)="genreId = item.id"></i>
+                                                                  (click)="genreId = item.id"></i> -->
                                                       </div>
                                                 </td>
                                           </tr>
@@ -136,7 +136,7 @@
                                     </svg>
                               </div>
                               <h4 class="ct_fs_28 mb-3 ct_fw_600 text-center text-center">Confirm Delete</h4>
-                              <p class="mb-0 text-center ct_fs_18"> Are you sure? you want to delete it.</p>
+                              <p class="mb-0 text-center ct_fs_18"> Are you sure? you want to delete this.</p>
                         </div>
                   </div>
                   <div class="modal-footer border-0 justify-content-center ct_modal_footer">
