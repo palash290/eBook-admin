@@ -30,7 +30,12 @@ export class ChangePasswordComponent {
       current_password: new FormControl('', Validators.required),
       newPassword: new FormControl('', [Validators.required, strongPasswordValidator]),
       confPassword: new FormControl('', Validators.required),
-    }, { validators: passwordMatchValidator() });
+    }, {
+      validators: [
+        passwordMatchValidator(),
+        passwordMismatchValidator()
+      ]
+    });
 
   }
 
@@ -45,6 +50,7 @@ export class ChangePasswordComponent {
         next: (res: any) => {
           if (res.success == true) {
             this.toster.success(res.message);
+            this.form.reset();
             // this.router.navigateByUrl('/');
             this.loading = false;
           } else {
@@ -123,5 +129,17 @@ export function passwordMatchValidator(): ValidatorFn {
     }
 
     return password.value !== confirmPassword.value ? { 'passwordMismatch': true } : null;
+  };
+}
+
+export function passwordMismatchValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const currentPassword = control.get('current_password')?.value;
+    const newPassword = control.get('newPassword')?.value;
+    if (!currentPassword || !newPassword) return null;
+
+    return currentPassword === newPassword
+      ? { sameAsCurrent: true }
+      : null;
   };
 }

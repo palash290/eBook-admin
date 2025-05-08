@@ -18,6 +18,7 @@
                             <tr>
                                 <th>S No.</th>
                                 <th>Chatroom Name</th>
+                                <th>Description</th>
                                 <th>Created By</th>
                                 <th>Participants</th>
                                 <th>Action</th>
@@ -26,7 +27,7 @@
                         <tbody>
                             @if(data.length == 0) {
                             <tr>
-                                <td colspan="5" class="text-center ct_fs_18 ct_fw_600 mb-0">No chatrooms found</td>
+                                <td colspan="6" class="text-center ct_fs_18 ct_fw_600 mb-0">No chatrooms found</td>
                             </tr>
                             }
                             @for (item of data; track $index) {
@@ -34,8 +35,8 @@
                                 <td>{{ (currentPage - 1) * pageSize + $index + 1 }}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img [src]="item.profilePic ? item.profilePic :  'assets/img/np_pro.png'" alt=""
-                                            class="ct_img_40 ct_border_1">
+                                        <img [src]="item.profilePic ? item.profilePic :  'assets/img/profile_logo.jpg'"
+                                            alt="" class="ct_img_40 ct_border_1">
                                         <div>
                                             <h6 class="ct_fs_18 ct_fw_600 mb-0">{{item.name}}</h6>
                                             <!-- <p class="mb-0 ct_text_clr_6B7280">#design-team</p> -->
@@ -43,6 +44,7 @@
 
                                     </div>
                                 </td>
+                                <td class="ct_text_clr_6B7280 description">{{item.description}}</td>
                                 <td class="ct_text_clr_6B7280">{{item.admin.fullName}}</td>
                                 <td class="ct_text_clr_6B7280">{{item.participants.length}}</td>
 

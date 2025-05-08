@@ -44,7 +44,7 @@
                     } @else {
                     @for (item of data.messages; track $index) {
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <img [src]="item.senderAuthor?.avatar_url ? item.senderAuthor?.avatar_url : item.senderUser?.avatar_url ? item.senderUser?.avatar_url : 'assets/img/np_pro.png'"
+                        <img [src]="item.senderAuthor?.avatar_url ? item.senderAuthor?.avatar_url : item.senderUser?.avatar_url ? item.senderUser?.avatar_url : 'assets/img/profile_logo.jpg'"
                             alt="" class="ct_img_40">
                         <div>
                             <h6 class="ct_fs_18 mb-0 ct_fw_400"><span
@@ -85,7 +85,7 @@
                         } @else {
                         @for (item of data.participants; track $index) {
                         <div class="d-flex align-items-center gap-2 mt-3">
-                            <img [src]="item.User?.avatar_url ? item.User?.avatar_url : item.Author?.avatar_url ? item.Author?.avatar_url : 'assets/img/np_pro.png'"
+                            <img [src]="item.User?.avatar_url ? item.User?.avatar_url : item.Author?.avatar_url ? item.Author?.avatar_url : 'assets/img/profile_logo.jpg'"
                                 alt="" class="ct_img_40">
                             <div>
                                 <h6 class="ct_fs_18  mb-0 ct_fw_400"><span

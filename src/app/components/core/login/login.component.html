@@ -36,26 +36,29 @@
                             </div>
 
                         </div>
-                        <div class="ct_input-container position-relative">
+                        <div class="ct_input-container">
 
-                            <!-- <i class="fa-regular fa-eye-slash ct_eye_show"></i> -->
-                            <i class="fa-regular ct_eye_show" style="cursor: pointer;"
-                                [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"
-                                (click)="togglePasswordVisibility()"></i>
+                            <div class=" position-relative">
+                                <!-- <i class="fa-regular fa-eye-slash ct_eye_show"></i> -->
+                                <i class="fa-regular ct_eye_show" style="cursor: pointer;"
+                                    [ngClass]="isPasswordVisible ? 'fa-eye' : 'fa-eye-slash'"
+                                    (click)="togglePasswordVisibility()"></i>
 
-                            <input placeholder="Password" class="ct_input-field"
-                                type="{{ isPasswordVisible ? 'text' : 'password' }}" formControlName="password">
+                                <input placeholder="Password" class="ct_input-field"
+                                    type="{{ isPasswordVisible ? 'text' : 'password' }}" formControlName="password">
 
-                            <label for="ct_input-field" class="ct_input-label">Password</label>
-                            <span class="ct_input-highlight"></span>
+                                <label for="ct_input-field" class="ct_input-label">Password</label>
+                                <span class="ct_input-highlight"></span>
+                            </div>
+
 
                             <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
                                 class="err_msg">
                                 <div *ngIf="loginForm.controls['password'].errors?.['required']">Password is required
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="text-end">
                             <a routerLink="/forgot-password" class="ct_forgot_pass_link">Forgot your password</a>
                         </div>

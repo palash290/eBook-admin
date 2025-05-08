@@ -50,8 +50,8 @@
                                     </div>
                                 </td>
                                 <td class="ct_text_clr_6B7280">{{item.price | currency: 'USD'}}</td>
-                                <td class="ct_text_clr_6B7280">{{item.author.fullName}}</td>
-                                <td class="ct_text_clr_6B7280">{{item.publishedAt}}</td>
+                                <td class="ct_text_clr_6B7280">{{item.author?.fullName}}</td>
+                                <td class="ct_text_clr_6B7280">{{item.publishedAt | date}}</td>
                                 <!-- <td>
                                     <span><i class="fa-solid fa-star ct_yellow_star me-2"></i>4.8</span>
                                 </td> -->
