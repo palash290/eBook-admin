@@ -171,7 +171,7 @@ export class AddBookComponent {
     formData.append('price', this.authorForm.value.price)
     formData.append('costPrice', this.authorForm.value.costPrice)
     formData.append('stock', this.authorForm.value.stock)
-    formData.append('description', this.authorForm.value.description.tr)
+    formData.append('description', this.authorForm.value.description)
     formData.append('type', this.authorForm.value.type)
     formData.append('authorId', this.authorForm.value.author)
     if (this.coverImage && this.coverImage instanceof File) {
